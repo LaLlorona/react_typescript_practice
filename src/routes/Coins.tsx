@@ -31,7 +31,8 @@ const Coin = styled.h1`
 
   a {
     transition: color 0.2s ease-in;
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 20px;
   }
 
@@ -40,6 +41,12 @@ const Coin = styled.h1`
       color: ${(props) => props.theme.accentColor};
     }
   }
+`;
+
+const Img = styled.img`
+  width: 35;
+  height: 35px;
+  margin-right: 10px;
 `;
 
 interface CoinInterface {
@@ -67,7 +74,6 @@ function Coins() {
 
       setCoins(json.slice(0, 30));
       setLoading(false);
-      console.log(coins);
     })();
   }, []);
   return (
@@ -81,7 +87,12 @@ function Coins() {
         <CoinsList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+              <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+                <Img
+                  src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
+                ></Img>
+                {coin.name} &rarr;{" "}
+              </Link>
             </Coin>
           ))}
         </CoinsList>
